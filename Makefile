@@ -1,7 +1,7 @@
 NAME    = philo
 CC = gcc
 INC = philo.h
-CFLAGS = -Wall -Wextra -Werror -pthread #-fsanitize=thread -fPIE -g
+CFLAGS = -Wall -Wextra -Werror -pthread -fsanitize=thread -fPIE -g
 RM = rm -rf
 
 SRCS    =	philo.c \

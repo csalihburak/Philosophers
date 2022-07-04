@@ -6,7 +6,7 @@
 /*   By: scoskun <scoskun@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 13:12:51 by scoskun           #+#    #+#             */
-/*   Updated: 2022/07/04 13:17:13 by scoskun          ###   ########.fr       */
+/*   Updated: 2022/07/04 13:42:24 by scoskun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	deadcheck(t_philo *ph)
 
 	i = 0;
 	count = 0;
-	while (1 && ph->nbr_philo != 1)
+	while (1 && (ph->nbr_philo != 1))
 	{
 		i = -1;
 		while (++i < ph->nbr_philo)
@@ -49,7 +49,9 @@ void	ft_free(t_philo *ph)
 		pthread_mutex_destroy(&ph->fork[i++]);
 	pthread_mutex_destroy(ph->lock);
 	free(ph->fork);
+	free(ph->lock);
 	free(ph);
+	//system("leaks philo");
 }
 
 int	check_arg(int ac, char **av)
@@ -89,8 +91,9 @@ int	main(int ac, char **av)
 	set_forks(philo, forks, size);
 	init_philosophers(philo, av, size);
 	create_threads(philo, ft_atoi(av[1]));
-	deadcheck(philo);
 	if (size == 1)
 		pthread_join(philo[0].thread, NULL);
+	//join_thread(philo);
+	deadcheck(philo);
 	ft_free(philo);
 }

@@ -6,7 +6,7 @@
 /*   By: scoskun <scoskun@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 13:07:37 by scoskun           #+#    #+#             */
-/*   Updated: 2022/07/04 13:20:28 by scoskun          ###   ########.fr       */
+/*   Updated: 2022/07/04 13:36:22 by scoskun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,16 +71,22 @@ void	create_threads(t_philo *philo, int nbr_philo)
 	}
 }
 
+void	join_thread(t_philo *ph)
+{
+	int	i;
+
+	i = 0;
+	while (i< ph->nbr_philo)
+		pthread_join(ph[i++].thread, NULL);
+}
+
 void	init_philosophers(t_philo *philo, char **av, int size)
 {
 	int				i;
-	int				*dead;
 	pthread_mutex_t	*lock;
 
 	i = -1;
 	lock = malloc(sizeof(pthread_mutex_t));
-	dead = malloc(sizeof(int));
-	*dead = 1;
 	while (++i < size)
 	{
 		philo[i].id = i + 1;
@@ -90,9 +96,9 @@ void	init_philosophers(t_philo *philo, char **av, int size)
 		philo[i].time_to_sleep = ft_atoi(av[4]);
 		philo[i].lock = lock;
 		philo[i].ms = 0;
+		philo[i].eat_keep = -1;
 		philo[i].start = 0;
 		philo[i].death = ft_atoi(av[2]);
-		philo[i].start = 0;
 		philo[i].start_time = 0;
 		philo[i].hm_eat = 0;
 		if (av[5])
