@@ -47,9 +47,9 @@ void			create_threads(t_philo *philo, int nbr_philo);
 void			join_threads(t_philo *ph);
 void			*routine(t_philo *philo);
 void			deadcheck(t_philo *ph);
-int			eat(t_philo *ph);
-int			take_fork(t_philo *ph);
-int			ft_think(t_philo *ph);
-int			ft_sleep(t_philo *ph);
+void			eat(t_philo *ph);
+void			take_fork(t_philo *ph);
+void			ft_think(t_philo *ph);
+void			ft_sleep(t_philo *ph);
 
 #endif

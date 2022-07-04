@@ -1,5 +1,33 @@
 #include "philo.h"
 
+void	deadcheck(t_philo *ph)
+{
+	int	i;
+	int count;
+
+	i = 0;
+	count = 0;
+	while (1  && ph->nbr_philo != 1)
+	{
+		i = -1;
+		while (++i < ph->nbr_philo)
+		{
+			pthread_mutex_lock(ph[i].lock);
+			gettime(&ph[i]);
+			if (ph[i].start_time > ph[i].death)
+			{
+				printf("%ld %d is died\n", ph->death, ph->id);
+				return ;
+			}
+			if (ph[i].hm_eat == ph[i].eat_keep)
+				count++;
+			if (count == ph->nbr_philo)
+				return ;
+			pthread_mutex_lock(ph[i].lock);
+		}
+	}
+}
+
 void	ft_free(t_philo *ph)
 {
 	int	i;
@@ -48,12 +76,10 @@ int	main(int ac, char **av)
 	forks = init_mutex(size);
 	set_forks(philo,forks, size);
 	init_philosophers(philo, av, size);
-/* 	for (int i = 0; i < size; i++)
-		printf("%d r_f = [%p] l_f = [%p]\n", i, philo[i].r_f, philo[i].l_f);
-	for (int i = 0; i < size; i++)
-		printf("%p\n", &forks[i]); */
 	create_threads(philo, ft_atoi(av[1]));
-	join_threads(philo);
+	deadcheck(philo);
+	if (size == 1)
+		pthread_join(philo[0].thread, NULL);
 	ft_free(philo);
 }
 

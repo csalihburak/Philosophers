@@ -42,11 +42,13 @@ void	gettime(t_philo *philo)
 /* 	static long			ms;
 	static long			start; */
 
+	pthread_mutex_lock(philo->lock);
 	gettimeofday(&philo->tv, NULL);
 	philo->ms = (philo->tv.tv_sec * 1000) + (philo->tv.tv_usec / 1000);
 	if (philo->start == 0)
 		philo->start = philo->ms;
 	philo->start_time = (philo->ms) - (philo->start);
+	pthread_mutex_unlock(philo->lock);
 }
 
 int	ft_usleep(t_philo *ph, long ms)
@@ -57,9 +59,6 @@ int	ft_usleep(t_philo *ph, long ms)
 	time = ph->start_time;
 	while (ph->start_time < ms + time)
 	{
-		deadcheck(ph);
-		if (!is_good(ph))
-			return (0);
 		gettime(ph);
 	}
 	return (1);
