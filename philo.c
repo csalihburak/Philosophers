@@ -6,7 +6,7 @@
 /*   By: scoskun <scoskun@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 13:12:51 by scoskun           #+#    #+#             */
-/*   Updated: 2022/07/04 13:42:24 by scoskun          ###   ########.fr       */
+/*   Updated: 2022/07/04 17:47:44 by scoskun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void	deadcheck(t_philo *ph)
 				return ;
 			pthread_mutex_lock(ph[i].lock);
 		}
+		count = 0;
 	}
 }
 
