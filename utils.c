@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: scoskun <scoskun@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/07/04 13:13:10 by scoskun           #+#    #+#             */
+/*   Updated: 2022/07/04 13:16:07 by scoskun          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo.h"
 
 int	is_digit(char *arr)
@@ -39,9 +51,6 @@ long	ft_atoi(const char *str)
 
 void	gettime(t_philo *philo)
 {
-/* 	static long			ms;
-	static long			start; */
-
 	pthread_mutex_lock(philo->lock);
 	gettimeofday(&philo->tv, NULL);
 	philo->ms = (philo->tv.tv_sec * 1000) + (philo->tv.tv_usec / 1000);

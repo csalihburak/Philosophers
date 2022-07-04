@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   routine.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: scoskun <scoskun@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/07/04 13:13:13 by scoskun           #+#    #+#             */
+/*   Updated: 2022/07/04 13:15:41 by scoskun          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo.h"
 
 void	*routine(t_philo *philo)
 {
-	if(philo->nbr_philo == 1)
+	if (philo->nbr_philo == 1)
 	{
 		gettime(philo);
 		printf("%ld %d has taken a fork\n", philo->start_time, philo->id);
@@ -14,10 +26,9 @@ void	*routine(t_philo *philo)
 	{
 		take_fork(philo);
 		eat(philo);
-		if(philo->hm_eat == philo->eat_keep)
+		if (philo->hm_eat == philo->eat_keep)
 			break ;
 		ft_sleep(philo);
-
 		ft_think(philo);
 		usleep(200);
 	}
