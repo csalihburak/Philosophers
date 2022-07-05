@@ -6,7 +6,7 @@
 /*   By: scoskun <scoskun@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 13:07:37 by scoskun           #+#    #+#             */
-/*   Updated: 2022/07/04 13:36:22 by scoskun          ###   ########.fr       */
+/*   Updated: 2022/07/05 18:31:03 by scoskun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,8 @@ void	create_threads(t_philo *philo, int nbr_philo)
 	{
 		pthread_create(&philo[i].thread, NULL, \
 			(void *)routine, &philo[i]);
-		i += 2;
+		pthread_detach(philo[i].thread);
+		i++;
 	}
 	i = 1;
 	usleep(600);
@@ -67,6 +68,7 @@ void	create_threads(t_philo *philo, int nbr_philo)
 	{
 		pthread_create(&philo[i].thread, NULL, \
 			(void *)routine, &philo[i]);
+		pthread_detach(philo[i].thread);
 		i += 2;
 	}
 }
@@ -84,10 +86,13 @@ void	init_philosophers(t_philo *philo, char **av, int size)
 {
 	int				i;
 	pthread_mutex_t	*lock;
+	int				*dead;
 
-	i = -1;
+	i = 0;
 	lock = malloc(sizeof(pthread_mutex_t));
-	while (++i < size)
+	dead = malloc(sizeof(int));
+	*dead = 0;
+	while (i < size)
 	{
 		philo[i].id = i + 1;
 		philo[i].nbr_philo = ft_atoi(av[1]);
@@ -96,6 +101,7 @@ void	init_philosophers(t_philo *philo, char **av, int size)
 		philo[i].time_to_sleep = ft_atoi(av[4]);
 		philo[i].lock = lock;
 		philo[i].ms = 0;
+		philo[i].is_ph_dead = dead;
 		philo[i].eat_keep = -1;
 		philo[i].start = 0;
 		philo[i].death = ft_atoi(av[2]);
@@ -103,5 +109,6 @@ void	init_philosophers(t_philo *philo, char **av, int size)
 		philo[i].hm_eat = 0;
 		if (av[5])
 			philo[i].eat_keep = ft_atoi(av[5]);
+		i++;
 	}
 }

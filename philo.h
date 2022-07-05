@@ -6,7 +6,7 @@
 /*   By: scoskun <scoskun@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 13:13:25 by scoskun           #+#    #+#             */
-/*   Updated: 2022/07/04 13:33:41 by scoskun          ###   ########.fr       */
+/*   Updated: 2022/07/05 18:25:18 by scoskun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,5 +62,8 @@ void			take_fork(t_philo *ph);
 void			ft_think(t_philo *ph);
 void			ft_sleep(t_philo *ph);
 void			join_thread(t_philo *ph);
+int				is_good(t_philo *ph);
+void	deadcheck(t_philo *ph);
+void	go_kill(t_philo *ph);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: scoskun <scoskun@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 13:13:10 by scoskun           #+#    #+#             */
-/*   Updated: 2022/07/04 13:16:07 by scoskun          ###   ########.fr       */
+/*   Updated: 2022/07/05 18:23:13 by scoskun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,11 @@ int	ft_usleep(t_philo *ph, long ms)
 	while (ph->start_time < ms + time)
 	{
 		gettime(ph);
+		if (ph->start_time > ph->death)
+		{
+			go_kill(ph);
+			return (0);
+		}
 	}
 	return (1);
 }

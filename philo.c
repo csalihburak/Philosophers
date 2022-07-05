@@ -6,7 +6,7 @@
 /*   By: scoskun <scoskun@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 13:12:51 by scoskun           #+#    #+#             */
-/*   Updated: 2022/07/05 14:34:09 by scoskun          ###   ########.fr       */
+/*   Updated: 2022/07/05 18:24:59 by scoskun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	deadcheck(t_philo *ph)
 {
-	int	i;
+/* 	int	i;
 	int	count;
 
 	i = 0;
@@ -34,9 +34,16 @@ void	deadcheck(t_philo *ph)
 				count++;
 			if (count == ph->nbr_philo)
 				return ;
+			usleep(200);
 		}
 		count = 0;
+	} */
+	while (1)
+	{
+		if(*ph->is_ph_dead)
+			break;
 	}
+
 }
 
 void	ft_free(t_philo *ph)
@@ -90,7 +97,6 @@ int	main(int ac, char **av)
 	create_threads(philo, ft_atoi(av[1]));
 	if (size == 1)
 		pthread_join(philo[0].thread, NULL);
-	//join_thread(philo);
 	deadcheck(philo);
 	ft_free(philo);
 	return (0);
