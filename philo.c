@@ -6,7 +6,7 @@
 /*   By: scoskun <scoskun@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 13:12:51 by scoskun           #+#    #+#             */
-/*   Updated: 2022/07/04 17:47:44 by scoskun          ###   ########.fr       */
+/*   Updated: 2022/07/05 14:34:09 by scoskun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ void	deadcheck(t_philo *ph)
 		i = -1;
 		while (++i < ph->nbr_philo)
 		{
-			pthread_mutex_lock(ph[i].lock);
 			gettime(&ph[i]);
 			if (ph[i].start_time > ph[i].death)
 			{
@@ -35,7 +34,6 @@ void	deadcheck(t_philo *ph)
 				count++;
 			if (count == ph->nbr_philo)
 				return ;
-			pthread_mutex_lock(ph[i].lock);
 		}
 		count = 0;
 	}
@@ -46,8 +44,6 @@ void	ft_free(t_philo *ph)
 	int	i;
 
 	i = 0;
-	while (i < ph->nbr_philo)
-		pthread_mutex_destroy(&ph->fork[i++]);
 	pthread_mutex_destroy(ph->lock);
 	free(ph->fork);
 	free(ph->lock);
@@ -97,4 +93,5 @@ int	main(int ac, char **av)
 	//join_thread(philo);
 	deadcheck(philo);
 	ft_free(philo);
+	return (0);
 }

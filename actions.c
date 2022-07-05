@@ -6,7 +6,7 @@
 /*   By: scoskun <scoskun@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 13:13:04 by scoskun           #+#    #+#             */
-/*   Updated: 2022/07/04 18:10:22 by scoskun          ###   ########.fr       */
+/*   Updated: 2022/07/05 14:36:19 by scoskun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,4 +46,5 @@ void	eat(t_philo *ph)
 	ph->hm_eat++;
 	pthread_mutex_unlock(ph->r_f);
 	pthread_mutex_unlock(ph->l_f);
+	usleep(300);
 }
