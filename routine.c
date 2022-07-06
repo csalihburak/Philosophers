@@ -6,7 +6,7 @@
 /*   By: scoskun <scoskun@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 13:13:13 by scoskun           #+#    #+#             */
-/*   Updated: 2022/07/05 18:25:56 by scoskun          ###   ########.fr       */
+/*   Updated: 2022/07/06 21:07:00 by scoskun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,11 @@
 void	go_kill(t_philo *ph)
 {
 	pthread_mutex_lock(ph->lock);
-	printf("%ld %d is died\n", ph->start_time, ph->id);
-	*ph->is_ph_dead = 1;
+	if (!*ph->is_ph_dead)
+	{
+		printf("%ld %d is died\n", ph->start_time, ph->id);
+		*ph->is_ph_dead = 1;
+	}
 	pthread_mutex_unlock(ph->lock);
 }
 
@@ -39,7 +42,11 @@ void	*routine(t_philo *philo)
 			break ;
 		ft_sleep(philo);
 		ft_think(philo);
-		usleep(200);
 	}
+	pthread_mutex_lock(philo->lock);
+	*philo->is_full += 1;
+	if (*philo->is_full == philo->nbr_philo)
+		*philo->is_ph_dead = 1;
+	pthread_mutex_unlock(philo->lock);
 	return (NULL);
 }

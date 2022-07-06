@@ -6,7 +6,7 @@
 /*   By: scoskun <scoskun@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 13:12:51 by scoskun           #+#    #+#             */
-/*   Updated: 2022/07/05 18:24:59 by scoskun          ###   ########.fr       */
+/*   Updated: 2022/07/06 20:54:19 by scoskun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,10 @@ void	deadcheck(t_philo *ph)
 	} */
 	while (1)
 	{
+		pthread_mutex_lock(ph->lock);
 		if(*ph->is_ph_dead)
-			break;
+			return ;
+		pthread_mutex_unlock(ph->lock);
 	}
 
 }

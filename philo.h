@@ -6,7 +6,7 @@
 /*   By: scoskun <scoskun@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 13:13:25 by scoskun           #+#    #+#             */
-/*   Updated: 2022/07/05 18:25:18 by scoskun          ###   ########.fr       */
+/*   Updated: 2022/07/06 21:07:16 by scoskun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ typedef struct s_philo
 	long			last_meal;
 	long			death;
 	int				hm_eat;
-	int				is_full;
+	int				*is_full;
 	int				*is_ph_dead;
 	int				eat_keep;
 	struct timeval	tv;
