@@ -6,7 +6,7 @@
 /*   By: scoskun <scoskun@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 13:07:37 by scoskun           #+#    #+#             */
-/*   Updated: 2022/07/06 21:08:26 by scoskun          ###   ########.fr       */
+/*   Updated: 2022/07/07 16:56:25 by scoskun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,13 +72,26 @@ void	create_threads(t_philo *philo, int nbr_philo)
 	}
 }
 
-void	join_thread(t_philo *ph)
+void	set_basics(t_philo *philo, char **av)
 {
 	int	i;
+	int	size;
 
 	i = 0;
-	while (i< ph->nbr_philo)
-		pthread_join(ph[i++].thread, NULL);
+	size = ft_atoi(av[1]);
+	while (i < size)
+	{
+		philo[i].id = i + 1;
+		philo[i].nbr_philo = size;
+		philo[i].time_to_die = ft_atoi(av[2]);
+		philo[i].time_to_eat = ft_atoi(av[3]);
+		philo[i].time_to_sleep = ft_atoi(av[4]);
+		philo[i].death = ft_atoi(av[2]);
+		philo[i].eat_keep = -1;
+		if (av[5])
+			philo[i].eat_keep = ft_atoi(av[5]);
+		i++;
+	}
 }
 
 void	init_philosophers(t_philo *philo, char **av, int size)
@@ -95,24 +108,17 @@ void	init_philosophers(t_philo *philo, char **av, int size)
 	full = malloc(sizeof(int));
 	*dead = 0;
 	*full = 0;
+	set_basics(philo, av);
 	while (i < size)
 	{
 		philo[i].id = i + 1;
-		philo[i].nbr_philo = ft_atoi(av[1]);
-		philo[i].time_to_die = ft_atoi(av[2]);
-		philo[i].time_to_eat = ft_atoi(av[3]);
-		philo[i].time_to_sleep = ft_atoi(av[4]);
 		philo[i].lock = lock;
 		philo[i].is_full = full;
 		philo[i].is_ph_dead = dead;
-		philo[i].eat_keep = -1;
-		philo[i].death = ft_atoi(av[2]);
 		philo[i].hm_eat = 0;
-		if (av[5])
-			philo[i].eat_keep = ft_atoi(av[5]);
+		philo[i].ms = 0;
+		philo[i].start = 0;
+		philo[i].start_time = 0;
 		i++;
 	}
-	philo->ms = 0;
-	philo->start = 0;
-	philo->start_time = 0;
 }

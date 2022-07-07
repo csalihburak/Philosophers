@@ -6,7 +6,7 @@
 /*   By: scoskun <scoskun@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 13:13:10 by scoskun           #+#    #+#             */
-/*   Updated: 2022/07/05 18:23:13 by scoskun          ###   ########.fr       */
+/*   Updated: 2022/07/07 16:12:07 by scoskun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,13 +51,11 @@ long	ft_atoi(const char *str)
 
 void	gettime(t_philo *philo)
 {
-	pthread_mutex_lock(philo->lock);
 	gettimeofday(&philo->tv, NULL);
 	philo->ms = (philo->tv.tv_sec * 1000) + (philo->tv.tv_usec / 1000);
 	if (philo->start == 0)
 		philo->start = philo->ms;
 	philo->start_time = (philo->ms) - (philo->start);
-	pthread_mutex_unlock(philo->lock);
 }
 
 int	ft_usleep(t_philo *ph, long ms)
@@ -74,6 +72,7 @@ int	ft_usleep(t_philo *ph, long ms)
 			go_kill(ph);
 			return (0);
 		}
+		usleep(100);
 	}
 	return (1);
 }

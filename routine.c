@@ -6,7 +6,7 @@
 /*   By: scoskun <scoskun@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 13:13:13 by scoskun           #+#    #+#             */
-/*   Updated: 2022/07/06 21:07:00 by scoskun          ###   ########.fr       */
+/*   Updated: 2022/07/07 17:26:48 by scoskun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,9 @@ void	*routine(t_philo *philo)
 	{
 		gettime(philo);
 		printf("%ld %d has taken a fork\n", philo->start_time, philo->id);
-		ft_usleep(philo, philo->time_to_die);
-		printf("%ld %d is died\n", philo->start_time, philo->id);
 		*philo->is_ph_dead = 1;
+		ft_usleep(philo, philo->time_to_die);
+		printf("%ld %d is died\n", philo->time_to_die, philo->id);
 		return (NULL);
 	}
 	while (1)

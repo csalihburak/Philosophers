@@ -6,7 +6,7 @@
 /*   By: scoskun <scoskun@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 13:13:04 by scoskun           #+#    #+#             */
-/*   Updated: 2022/07/06 20:46:02 by scoskun          ###   ########.fr       */
+/*   Updated: 2022/07/07 14:16:59 by scoskun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ void	take_fork(t_philo *ph)
 	pthread_mutex_lock(ph->lock);
 	if (!*ph->is_ph_dead)
 	{
-		printf("%ld %d has taken\n", ph->start_time, ph->id);
-		printf("%ld %d has taken\n", ph->start_time, ph->id);
+		printf("%ld %d has taken a fork\n", ph->start_time, ph->id);
+		printf("%ld %d has taken a fork\n", ph->start_time, ph->id);
 	}
 	pthread_mutex_unlock(ph->lock);
 }

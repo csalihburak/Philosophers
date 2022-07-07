@@ -6,7 +6,7 @@
 /*   By: scoskun <scoskun@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 13:12:51 by scoskun           #+#    #+#             */
-/*   Updated: 2022/07/06 20:54:19 by scoskun          ###   ########.fr       */
+/*   Updated: 2022/07/07 17:27:13 by scoskun          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,38 +14,13 @@
 
 void	deadcheck(t_philo *ph)
 {
-/* 	int	i;
-	int	count;
-
-	i = 0;
-	count = 0;
-	while (1 && (ph->nbr_philo != 1))
-	{
-		i = -1;
-		while (++i < ph->nbr_philo)
-		{
-			gettime(&ph[i]);
-			if (ph[i].start_time > ph[i].death)
-			{
-				printf("%ld %d is died\n", ph->death, ph->id);
-				return ;
-			}
-			if (ph[i].hm_eat == ph[i].eat_keep)
-				count++;
-			if (count == ph->nbr_philo)
-				return ;
-			usleep(200);
-		}
-		count = 0;
-	} */
-	while (1)
+	while (1 && ph->nbr_philo != 1)
 	{
 		pthread_mutex_lock(ph->lock);
-		if(*ph->is_ph_dead)
+		if (*ph->is_ph_dead)
 			return ;
 		pthread_mutex_unlock(ph->lock);
 	}
-
 }
 
 void	ft_free(t_philo *ph)
@@ -53,11 +28,14 @@ void	ft_free(t_philo *ph)
 	int	i;
 
 	i = 0;
+	while (i < ph->nbr_philo)
+		pthread_mutex_destroy(&ph->fork[i++]);
 	pthread_mutex_destroy(ph->lock);
 	free(ph->fork);
 	free(ph->lock);
+	free(ph->is_ph_dead);
+	free(ph->is_full);
 	free(ph);
-	//system("leaks philo");
 }
 
 int	check_arg(int ac, char **av)
@@ -98,7 +76,7 @@ int	main(int ac, char **av)
 	init_philosophers(philo, av, size);
 	create_threads(philo, ft_atoi(av[1]));
 	if (size == 1)
-		pthread_join(philo[0].thread, NULL);
+		usleep(philo->time_to_die * 1000);
 	deadcheck(philo);
 	ft_free(philo);
 	return (0);
