@@ -44,9 +44,4 @@ Example
 ```sh
 ./philo 4 800 200 200
 ```
-
-```sh
-./philo_bonus 10 410 200 200 7
-```
-
-##
+<img src="https://github.com/csalihburak/Philosophers/images/image.png" />
