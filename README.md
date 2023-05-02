@@ -27,10 +27,6 @@ Go to `philo` or `philo_bonus` folder and run `make`
 ```sh
 cd ./philo && make
 ```
-```sh
-cd ./philo_bonus && make
-```
-
 - *Makefile rules: `all`, `clean`, `fclean`, `re`).*
 
 Usage
